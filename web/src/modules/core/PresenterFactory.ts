@@ -3,6 +3,8 @@ import {NextRouterAdapter} from "./Router/NextRouter";
 import {useRouter} from "next/router";
 import {LoginPresenter} from "@/ui/LoginPage/LoginPresenter";
 import {LoginModel} from "@/ui/LoginPage/LoginModel";
+import {DashboardModel} from "@/ui/Dashboard/DashboardModel";
+import {DashboardPresenter} from "@/ui/Dashboard/DashboardPagePresenter";
 
 export class PresenterFactory {
     private nextRouter = useRouter();
@@ -15,5 +17,10 @@ export class PresenterFactory {
     loginPresenter(initialModel: LoginModel, onModelChange: (model: LoginModel) => void): LoginPresenter {
         const router = new NextRouterAdapter(this.nextRouter);
         return new LoginPresenter(router, initialModel, onModelChange);
+    }
+
+    dashboardPresenter(initialModel: DashboardModel, onModelChange: (model: DashboardModel) => void): DashboardPresenter {
+        const router = new NextRouterAdapter(this.nextRouter);
+        return new DashboardPresenter(router, initialModel, onModelChange);
     }
 }

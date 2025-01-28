@@ -15,7 +15,7 @@ const LoginPage = () => {
                         type="email"
                         id="email"
                         value={presenter.model.email}
-                        onChange={(e) => presenter.updateEmail(e.target.value)}
+                        onChange={e => presenter.updateEmail(e.target.value)}
                         placeholder="Ingresa tu correo"
                     />
                     {presenter.model.errors.email && <LoginStyles.Error>{presenter.model.errors.email}</LoginStyles.Error>}
@@ -26,7 +26,7 @@ const LoginPage = () => {
                         type="password"
                         id="password"
                         value={presenter.model.password}
-                        onChange={(e) => presenter.updatePassword(e.target.value)}
+                        onChange={e => presenter.updatePassword(e.target.value)}
                         placeholder="Ingresa tu contraseña"
                     />
                     {presenter.model.errors.password && <LoginStyles.Error>{presenter.model.errors.password}</LoginStyles.Error>}

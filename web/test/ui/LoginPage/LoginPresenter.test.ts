@@ -25,7 +25,7 @@ describe("LoginPresenter", () => {
 
         presenter.login();
 
-        expect(routerMock.navigate).toHaveBeenCalledWith("/home");
+        expect(routerMock.navigate).toHaveBeenCalledWith("/dashboard");
     });
 
     it("debería notificar errores si los campos están vacíos", () => {

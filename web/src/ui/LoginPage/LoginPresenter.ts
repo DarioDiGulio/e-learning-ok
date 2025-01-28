@@ -37,7 +37,7 @@ export class LoginPresenter {
   login = (): void => {
     this.validateFields();
     if (Object.keys(this.model.errors).length === 0) {
-      this.router.navigate("/home");
+      this.router.navigate("/dashboard");
     }
   };
 

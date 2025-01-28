@@ -2,10 +2,10 @@ import { Router } from "@/modules/core/Router/Router";
 import { HomePresenter } from "@/ui/Home/HomePresenter";
 
 describe('LoginPresenter', () => {
-  it('debería llamar a navigate con "/iniciar-sesion"', () => {
+  it('debería llamar a navigate con "/login"', () => {
     presenter.navigateToLogin();
 
-    expect(router.navigate).toHaveBeenCalledWith('/iniciar-sesion');
+    expect(router.navigate).toHaveBeenCalledWith('/login');
   });
 
   beforeEach(() => {
