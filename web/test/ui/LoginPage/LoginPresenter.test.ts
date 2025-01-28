@@ -62,6 +62,14 @@ describe("LoginPresenter", () => {
         expect(model.errors.email).toBe("El correo electrónico es obligatorio.")
     });
 
+    it("debería mostrar un error si el email no es válido", () => {
+        presenter.updateEmail("not-an-email");
+
+        presenter.login();
+
+        expect(model.errors.email).toBe("El correo electrónico no es válido.");
+    });
+
     beforeEach(() => {
         routerMock = {navigate: jest.fn()};
         onModelChangeMock = jest.fn();

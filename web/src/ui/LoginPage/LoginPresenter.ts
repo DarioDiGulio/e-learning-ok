@@ -1,9 +1,9 @@
 import { Router } from "@/modules/core/Router/Router";
-import { LoginModel } from "@/ui/LoginPage/LoginModel";
+import {LoginErrors, LoginModel} from "@/ui/LoginPage/LoginModel";
 
 export class LoginPresenter {
-  model: LoginModel;
   private readonly onModelChangeCallback: (model: LoginModel) => void;
+  model: LoginModel;
 
   constructor(private router: Router, initialModel: LoginModel, onModelChange: (model: LoginModel) => void) {
     this.model = initialModel;
@@ -43,17 +43,32 @@ export class LoginPresenter {
 
   private validateFields(): void {
     const errors: LoginModel["errors"] = {};
-    if (!this.model.email) {
-      errors.email = "El correo electrónico es obligatorio.";
-    }
-    if (!this.model.password) {
-      errors.password = "La contraseña es obligatoria.";
-    }
+    this.validateEmail(errors);
+    this.validatePassword(errors);
     this.model.errors = errors;
     this.notifyModelChange();
   }
 
+  private validatePassword(errors: LoginErrors) {
+    if (!this.model.password) {
+      errors.password = "La contraseña es obligatoria.";
+    }
+  }
+
+  private validateEmail(errors: LoginErrors) {
+    if (!this.model.email) {
+      errors.email = "El correo electrónico es obligatorio.";
+    } else if (!this.isValidEmail(this.model.email)) {
+      errors.email = "El correo electrónico no es válido.";
+    }
+  }
+
   private notifyModelChange(): void {
     this.onModelChangeCallback(this.model);
+  }
+
+  private isValidEmail(email: string): boolean {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
   }
 }
