@@ -1,5 +1,5 @@
 import { Router } from "@/modules/core/Router/Router";
-import {LoginErrors, LoginModel} from "@/ui/LoginPage/LoginModel";
+import {LoginErrors, LoginModel} from "@/ui/screens/LoginPage/LoginModel";
 
 export class LoginPresenter {
   private readonly onModelChangeCallback: (model: LoginModel) => void;

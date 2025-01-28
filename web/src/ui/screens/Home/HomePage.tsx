@@ -1,6 +1,6 @@
-import { usePresenter } from '@/pages/hooks/usePresenters';
+import { usePresenter } from '@/ui/react/hooks/usePresenters';
 import React from 'react';
-import {HomeStyles} from "@/ui/Home/HomePageStyles";
+import {HomeStyles} from "@/ui/screens/Home/HomePageStyles";
 
 const Home: React.FC = () => {
   const { homePresenter } = usePresenter();

@@ -1,7 +1,7 @@
 import {useMemo, useState} from "react";
 import { PresenterFactory } from "@/modules/core/PresenterFactory";
-import { LoginModel } from "@/ui/LoginPage/LoginModel";
-import {DashboardModel} from "@/ui/Dashboard/DashboardModel";
+import { LoginModel } from "@/ui/screens/LoginPage/LoginModel";
+import {DashboardModel} from "@/ui/screens/Dashboard/DashboardModel";
 
 export const usePresenter = () => {
     const [loginModel, setLoginModel] = useState(new LoginModel());

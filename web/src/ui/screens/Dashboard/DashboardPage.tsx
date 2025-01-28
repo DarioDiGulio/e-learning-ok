@@ -1,8 +1,8 @@
 import React, {useState} from "react";
-import {DashboardStyles} from "@/ui/Dashboard/DashboardPageStyles";
-import {usePresenter} from "@/pages/hooks/usePresenters";
-import {CursosPage} from "@/ui/Sections/Cursos/CursosPage";
-import {MediosDePagoPage} from "@/ui/Sections/MediosDePago/MediosDePagoPage";
+import {DashboardStyles} from "@/ui/screens/Dashboard/DashboardPageStyles";
+import {usePresenter} from "@/ui/react/hooks/usePresenters";
+import {CursosPage} from "@/ui/screens/Sections/Cursos/CursosPage";
+import {MediosDePagoPage} from "@/ui/screens/Sections/MediosDePago/MediosDePagoPage";
 
 const DashboardPage: React.FC = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);

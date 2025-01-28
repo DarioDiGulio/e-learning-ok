@@ -1,5 +1,5 @@
 import { Router } from "@/modules/core/Router/Router";
-import { HomePresenter } from "@/ui/Home/HomePresenter";
+import { HomePresenter } from "@/ui/screens/Home/HomePresenter";
 
 describe('LoginPresenter', () => {
   it('debería llamar a navigate con "/login"', () => {

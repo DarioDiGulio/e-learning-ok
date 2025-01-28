@@ -1,6 +1,6 @@
-import {LoginPresenter} from "@/ui/LoginPage/LoginPresenter";
+import {LoginPresenter} from "@/ui/screens/LoginPage/LoginPresenter";
 import {Router} from "@/modules/core/Router/Router";
-import {LoginModel} from "@/ui/LoginPage/LoginModel";
+import {LoginModel} from "@/ui/screens/LoginPage/LoginModel";
 
 describe("LoginPresenter", () => {
     it("debería actualizar el email y notificar el cambio de modelo", () => {
