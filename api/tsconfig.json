@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "module": "CommonJS", // Jest no soporta ES Modules sin configuración adicional
+    "target": "ES2020",
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "strict": true,
+    "esModuleInterop": true
+  }
+}
