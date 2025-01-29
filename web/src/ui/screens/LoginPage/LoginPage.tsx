@@ -1,7 +1,8 @@
 import React from "react";
 import {usePresenter} from "@/ui/react/hooks/usePresenters";
-import {Container, Card, Title, Button} from "@/ui/screens/LoginPage/LoginPageStyles";
+import {Card, Container, Title} from "@/ui/screens/LoginPage/LoginPageStyles";
 import {Input} from "@/ui/components/form/Input/Input";
+import {Button} from "@/ui/components/buttons/Button";
 
 const LoginPage = () => {
     const presenter = usePresenter().loginPresenter;
@@ -26,7 +27,11 @@ const LoginPage = () => {
                     placeholder="Ingresa tu contraseña"
                     error={presenter.model.errors.password}
                 />
-                <Button type="submit" onClick={presenter.login}>Entrar</Button>
+                <Button
+                    type="submit"
+                    onClick={presenter.login}
+                    text='Entrar'
+                />
             </Card>
         </Container>
     );
