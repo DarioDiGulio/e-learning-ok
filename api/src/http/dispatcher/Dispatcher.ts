@@ -7,18 +7,23 @@ export class Dispatcher {
         router: Router,
         method: "get" | "post" | "put" | "delete",
         path: string,
-        handler: HandlerFunction<T>,
-        transform: (req: Request) => T
+        handler: HandlerFunction<T>
     ): void {
         router[method](path, async (req: Request, res: Response, next: NextFunction) => {
             try {
-                const params = transform(req); // Transforma el request en los parámetros
-                const result = await handler(params); // Llama al handler con los parámetros
-                res.json(result); // Devuelve el resultado como JSON
+                const params = Dispatcher.extractParams<T>(req);
+                const result = await handler(params);
+                res.json(result);
             } catch (error) {
                 console.error(error);
-                next(error); // Maneja errores automáticamente
+                const errorMessage = error instanceof Error ? error.message : "An unexpected error occurred";
+
+                res.status(400).json({ error: errorMessage });
             }
         });
+    }
+
+    private static extractParams<T>(req: Request): T {
+        return { ...req.body, ...req.params, ...req.query } as T; // ✅ Extrae automáticamente todos los parámetros
     }
 }

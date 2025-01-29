@@ -11,7 +11,7 @@ export class PostgresUsers implements Users {
 
     async nextId(): Promise<number> {
         const result = await this.prisma.$queryRaw<{ nextval: number }[]>`
-    SELECT nextval(pg_get_serial_sequence('"User"', 'id')) as nextval
+    SELECT nextval(pg_get_serial_sequence('"users"', 'id')) as nextval
   `;
         return result[0].nextval;
     }
