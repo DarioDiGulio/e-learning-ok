@@ -58,4 +58,8 @@ export class Application {
             this.httpServer = null;
         });
     }
+
+    getServer(): Express {
+        return this.app;
+    }
 }
