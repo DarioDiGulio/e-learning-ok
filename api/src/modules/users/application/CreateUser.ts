@@ -9,15 +9,22 @@ interface CreateUserParams {
 export class CreateUser {
     constructor(private readonly userRepository: Users) {}
 
-    async handle(params: CreateUserParams): Promise<number> {
-        const { username, password } = params;
+    async handle(request: CreateUserParams): Promise<number> {
+        const { username, password } = request;
+        this.validate(request);
+        const user = await this.createUserBy(username, password);
+        return this.userRepository.create(user);
+    }
 
+    private validate(request: CreateUserParams) {
+        const { username, password } = request;
         if (!username || !password) {
             throw new Error("Username and password are required");
         }
+    }
 
+    private async createUserBy(username: string, password: string) {
         const nextId: number = await this.userRepository.nextId();
-        const user = new User(nextId, username, password, null, new Date(), new Date());
-        return this.userRepository.create(user);
+        return new User(nextId, username, password, null, new Date(), new Date());
     }
 }
