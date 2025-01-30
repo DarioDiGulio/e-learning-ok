@@ -17,13 +17,12 @@ export class Dispatcher {
             } catch (error) {
                 console.error(error);
                 const errorMessage = error instanceof Error ? error.message : "An unexpected error occurred";
-
                 res.status(400).json({ error: errorMessage });
             }
         });
     }
 
     private static extractParams<T>(req: Request): T {
-        return { ...req.body, ...req.params, ...req.query } as T; // ✅ Extrae automáticamente todos los parámetros
+        return { ...req.body, ...req.params, ...req.query } as T;
     }
 }

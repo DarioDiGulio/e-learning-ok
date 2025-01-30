@@ -3,9 +3,9 @@ import http from "http";
 import {StatusController} from "./controllers/StatusController";
 import {LoggerMiddleware} from "./middlewares/Logger";
 import {PostgresUsers} from "../modules/users/infrastructure/persistance/PostgresUsers";
-import {CreateUser} from "../modules/users/application/CreateUser";
 import {UsersController} from "./controllers/UsersController";
 import {BigIntMiddleware} from "./middlewares/BigIntMiddleware";
+import {RandomUUIDGenerator} from "../modules/common/infrastructure/UUIDGenerator/RandomUUIDGenerator";
 
 export class Application {
     private httpServer: http.Server | null = null;
@@ -41,10 +41,9 @@ export class Application {
 
     private registerControllers(): void {
         this.app.use(new StatusController().router)
-
         const userRepository = new PostgresUsers();
-        const createUserHandler = new CreateUser(userRepository);
-        const userController = new UsersController(createUserHandler);
+        const uuidGenerator = new RandomUUIDGenerator();
+        const userController = new UsersController(userRepository, uuidGenerator);
         this.app.use(userController.router);
     }
 
