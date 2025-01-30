@@ -3,7 +3,7 @@ export class User {
         public readonly id: number,
         public readonly username: string,
         public readonly password: string,
-        private sessionToken: string | null,
+        public sessionToken: string | null,
         public readonly createdAt: Date,
         public readonly updatedAt: Date
     ) {}
