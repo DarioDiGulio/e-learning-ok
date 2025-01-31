@@ -2,10 +2,10 @@ import express, {Express} from "express";
 import http from "http";
 import {StatusController} from "./controllers/StatusController";
 import {LoggerMiddleware} from "./middlewares/Logger";
-import {PostgresUsers} from "../modules/users/infrastructure/persistance/PostgresUsers";
 import {UsersController} from "./controllers/UsersController";
 import {BigIntMiddleware} from "./middlewares/BigIntMiddleware";
 import {RandomUUIDGenerator} from "../modules/common/infrastructure/UUIDGenerator/RandomUUIDGenerator";
+import {RepositoryProvider} from "../modules/common/infrastructure/persistance/RepositoriProvider";
 
 export class Application {
     private httpServer: http.Server | null = null;
@@ -41,9 +41,9 @@ export class Application {
 
     private registerControllers(): void {
         this.app.use(new StatusController().router)
-        const userRepository = new PostgresUsers();
+        const repositoryProvider = new RepositoryProvider();
         const uuidGenerator = new RandomUUIDGenerator();
-        const userController = new UsersController(userRepository, uuidGenerator);
+        const userController = new UsersController(repositoryProvider, uuidGenerator);
         this.app.use(userController.router);
     }
 

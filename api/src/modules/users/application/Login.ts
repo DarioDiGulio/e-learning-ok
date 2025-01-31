@@ -1,5 +1,7 @@
-import {Users} from "../domain/Users";
 import {RandomUUIDGenerator} from "../../common/infrastructure/UUIDGenerator/RandomUUIDGenerator";
+import {User} from "../domain/User";
+import {RepositoryProvider} from "../../common/infrastructure/persistance/RepositoriProvider";
+import {RepositoryType} from "../../common/infrastructure/persistance/Repositories";
 
 
 interface LoginParams {
@@ -8,27 +10,23 @@ interface LoginParams {
 }
 
 export class Login {
-    constructor(private userRepository: Users, private uuidGenerator: RandomUUIDGenerator) {}
+    constructor(private provider: RepositoryProvider, private uuidGenerator: RandomUUIDGenerator) {}
 
     async handle(params: LoginParams): Promise<{ sessionToken: string }> {
-        const { username, password } = params;
+        const users = this.provider.get(RepositoryType.USERS);
+        const user = await users.findByUsername(params.username);
+        this.validate(params.password, user);
+        const sessionToken = this.uuidGenerator.generateUUID();
+        await users.updateSessionToken(user!!.id, sessionToken);
+        return { sessionToken };
+    }
 
-        const user = await this.userRepository.findByUsername(username);
+    private validate(password: string, user: User | null) {
         if (!user) {
             throw new Error("Invalid credentials");
         }
-
-        // Validar contraseña (esto debería ser un hash en producción)
         if (user.password !== password) {
             throw new Error("Invalid credentials");
         }
-
-        // Generar un nuevo sessionToken
-        const sessionToken = this.uuidGenerator.generateUUID();
-
-        // Actualizar la sesión en la base de datos
-        await this.userRepository.updateSessionToken(user.id, sessionToken);
-
-        return { sessionToken };
     }
 }

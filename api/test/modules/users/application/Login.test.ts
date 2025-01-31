@@ -1,9 +1,10 @@
 import {Users} from "../../../../src/modules/users/domain/Users";
 import {Login} from "../../../../src/modules/users/application/Login";
-import {InMemoryUsers} from "../../../../src/modules/users/infrastructure/persistance/InMemoryUsers";
 import {UUIDGenerator} from "../../../../src/modules/common/infrastructure/UUIDGenerator/UUIDGenerator";
 import {FixedUUIDGenerator} from "../../../../src/modules/common/infrastructure/UUIDGenerator/FixedUUIDGenerator";
 import {User} from "../../../../src/modules/users/domain/User";
+import {RepositoryProvider} from "../../../../src/modules/common/infrastructure/persistance/RepositoriProvider";
+import {RepositoryType} from "../../../../src/modules/common/infrastructure/persistance/Repositories";
 
 describe("LoginHandler", () => {
     it("debe autenticar correctamente y devolver un sessionToken", async () => {
@@ -39,16 +40,19 @@ describe("LoginHandler", () => {
         users.create(new User(1, username, password, null, new Date(), new Date()));
     }
 
-    let users: Users;
     let uuidGenerator: UUIDGenerator;
+    let repositories: RepositoryProvider;
+    let users: Users;
     let handler: Login;
     const username = "user";
     const password = "1234";
 
     beforeEach(() => {
-        users = new InMemoryUsers();
+        const useInMemory = true;
+        repositories = new RepositoryProvider(useInMemory);
+        users = repositories.get(RepositoryType.USERS);
         uuidGenerator = new FixedUUIDGenerator();
-        handler = new Login(users, uuidGenerator);
+        handler = new Login(repositories, uuidGenerator);
     });
 });
 

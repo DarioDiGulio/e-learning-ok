@@ -3,11 +3,7 @@ import {User} from "../../domain/User";
 import { PrismaClient, users as PrismaUser } from "@prisma/client";
 
 export class PostgresUsers implements Users {
-    private prisma: PrismaClient;
-
-    constructor() {
-        this.prisma = new PrismaClient();
-    }
+    constructor(private prisma: PrismaClient) {}
 
     async nextId(): Promise<number> {
         const result = await this.prisma.$queryRaw<{ nextval: number }[]>`

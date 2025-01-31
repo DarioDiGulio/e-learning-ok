@@ -1,5 +1,6 @@
-import {Users} from "../domain/Users";
 import {User} from "../domain/User";
+import {RepositoryProvider} from "../../common/infrastructure/persistance/RepositoriProvider";
+import {RepositoryType} from "../../common/infrastructure/persistance/Repositories";
 
 interface CreateUserParams {
     username: string;
@@ -7,13 +8,13 @@ interface CreateUserParams {
 }
 
 export class CreateUser {
-    constructor(private readonly userRepository: Users) {}
+    constructor(private readonly provider: RepositoryProvider) {}
 
     async handle(request: CreateUserParams): Promise<number> {
         const { username, password } = request;
         this.validate(request);
         const user = await this.createUserBy(username, password);
-        return this.userRepository.create(user);
+        return this.provider.get(RepositoryType.USERS).create(user);
     }
 
     private validate(request: CreateUserParams) {
@@ -24,7 +25,7 @@ export class CreateUser {
     }
 
     private async createUserBy(username: string, password: string) {
-        const nextId: number = await this.userRepository.nextId();
+        const nextId: number = await this.provider.get(RepositoryType.USERS).nextId();
         return new User(nextId, username, password, null, new Date(), new Date());
     }
 }

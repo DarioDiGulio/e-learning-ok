@@ -1,6 +1,7 @@
-import { Users } from "../../../../src/modules/users/domain/Users";
-import { CreateUser } from "../../../../src/modules/users/application/CreateUser";
-import { InMemoryUsers } from "../../../../src/modules/users/infrastructure/persistance/InMemoryUsers";
+import {Users} from "../../../../src/modules/users/domain/Users";
+import {CreateUser} from "../../../../src/modules/users/application/CreateUser";
+import {RepositoryProvider} from "../../../../src/modules/common/infrastructure/persistance/RepositoriProvider";
+import {RepositoryType} from "../../../../src/modules/common/infrastructure/persistance/Repositories";
 
 describe("CreateUser", () => {
     it("debe crear un usuario correctamente y devolver su ID", async () => {
@@ -24,11 +25,13 @@ describe("CreateUser", () => {
 
     let users: Users;
     let handler: CreateUser;
+    let repositories: RepositoryProvider;
     const username = "user";
     const password = "1234";
 
     beforeEach(() => {
-        users = new InMemoryUsers();
-        handler = new CreateUser(users);
+        repositories = new RepositoryProvider(true);
+        users = repositories.get(RepositoryType.USERS);
+        handler = new CreateUser(repositories);
     });
 });
