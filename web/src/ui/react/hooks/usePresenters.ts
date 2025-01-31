@@ -1,12 +1,15 @@
 import {useMemo, useState} from "react";
 import { PresenterFactory } from "@/modules/core/PresenterFactory";
 import { LoginModel } from "@/ui/screens/public/LoginPage/LoginModel";
-import {DashboardModel} from "@/ui/screens/dashboard/DashboardModel";
+import {DashboardModel} from "@/ui/screens/dashboard/Layout/DashboardModel";
+import {SidebarModel} from "@/ui/screens/dashboard/Sidebar/SidebarModel";
 
 export const usePresenter = () => {
     const [loginModel, setLoginModel] = useState(new LoginModel());
     const [dashboardModel, setDashboardModel] = useState(new DashboardModel());
+    const [sidebarModel, setSidebarModel] = useState(new SidebarModel());
     const factory = new PresenterFactory();
+    const logoutPresenter = factory.logoutPresenter();
 
     const homePresenter = factory.homePresenter();
     const loginPresenter = useMemo(() => {
@@ -20,9 +23,17 @@ export const usePresenter = () => {
         });
     }, [factory, dashboardModel]);
 
+    const sidebarPresenter = useMemo(() => {
+        return factory.sideBarPresenter(sidebarModel, (updatedModel) => {
+            setSidebarModel({ ...updatedModel });
+        });
+    }, [factory, sidebarModel]);
+
     return {
         homePresenter,
         loginPresenter,
         dashboardPresenter,
+        logoutPresenter,
+        sidebarPresenter,
     };
 };

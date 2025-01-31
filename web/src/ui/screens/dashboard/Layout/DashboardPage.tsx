@@ -1,8 +1,8 @@
 import React from "react";
-import {Card, CardTitle, DashboardGrid, Layout, Main, StatsValue} from "@/ui/screens/dashboard/Dashboard.styles";
+import {Card, CardTitle, DashboardGrid, Layout, Main, StatsValue} from "@/ui/screens/dashboard/Layout/Dashboard.styles";
 import {usePresenter} from "@/ui/react/hooks/usePresenters";
-import Sidebar from "./Sidebar/Sidebar";
-import Header from "./Header/Header";
+import Sidebar from "../Sidebar/Sidebar";
+import Header from "../Header/Header";
 
 const DashboardPage: React.FC = () => {
     const presenter = usePresenter().dashboardPresenter;

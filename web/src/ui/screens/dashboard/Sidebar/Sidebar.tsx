@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-import {ChevronDown, ChevronRight, Menu as MenuIcon, X} from 'lucide-react';
+import React from "react";
+import {Menu as MenuIcon, X} from 'lucide-react';
 import {
     IconWrapper,
     Logo,
@@ -9,60 +9,35 @@ import {
     NavList,
     SidebarContainer,
     SidebarHeader,
-    Submenu,
-    SubmenuItem,
     Title
 } from "./Sidebar.styles";
 import {sidebarItems} from "@/ui/screens/dashboard/Sidebar/SidebarItems";
 import {SidebarItem} from "@/ui/screens/dashboard/Sidebar/SidebarItem";
+import {usePresenter} from "@/ui/react/hooks/usePresenters";
 
 const Sidebar: React.FC = () => {
-    const [isOpen, setIsOpen] = useState(true);
-    const [expandedItems, setExpandedItems] = useState<string[]>([]);
-
-    const toggleSubmenu = (title: string) => {
-        setExpandedItems(prev =>
-            prev.includes(title)
-                ? prev.filter(item => item !== title)
-                : [...prev, title]
-        );
-    };
+    const presenter = usePresenter().sidebarPresenter;
 
     return (
         <>
-            <MenuButton onClick={() => setIsOpen(!isOpen)}>
-                {isOpen ? <X size={20}/> : <MenuIcon size={20}/>}
+            <MenuButton onClick={presenter.toggle}>
+                {presenter.model.isOpen ? <X size={20}/> : <MenuIcon size={20}/>}
             </MenuButton>
 
-            <SidebarContainer isopen={isOpen}>
+            <SidebarContainer isopen={presenter.model.isOpen}>
                 <SidebarHeader>
                     <Logo>Dashboard</Logo>
                 </SidebarHeader>
 
                 <NavList>
-                    {sidebarItems.map((item) => (
+                    {sidebarItems.map((item: SidebarItem) => (
                         <React.Fragment key={item.title}>
-                            <NavItem onClick={() => item.submenu && toggleSubmenu(item.title)}>
+                            <NavItem onClick={() => presenter.itemClicked(item)}>
                                 <NavItemContent>
                                     <IconWrapper>{item.icon}</IconWrapper>
                                     <Title>{item.title}</Title>
-                                    {item.submenu && (
-                                        expandedItems.includes(item.title)
-                                            ? <ChevronDown size={16}/>
-                                            : <ChevronRight size={16}/>
-                                    )}
                                 </NavItemContent>
                             </NavItem>
-
-                            {item.submenu && expandedItems.includes(item.title) && (
-                                <Submenu>
-                                    {item.submenu.map((subItem: SidebarItem) => (
-                                        <SubmenuItem key={subItem.title}>
-                                            {subItem.title}
-                                        </SubmenuItem>
-                                    ))}
-                                </Submenu>
-                            )}
                         </React.Fragment>
                     ))}
                 </NavList>

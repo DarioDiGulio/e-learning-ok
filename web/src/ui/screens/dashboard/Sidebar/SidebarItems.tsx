@@ -1,28 +1,23 @@
-import {Home, Users, Settings, BarChart2, Mail} from 'lucide-react';
+import {Home, LogOutIcon} from 'lucide-react';
+import {SidebarItem} from "@/ui/screens/dashboard/Sidebar/SidebarItem";
 
 export const sidebarItems: SidebarItem[] = [
     {
         title: 'Dashboard',
-        icon: <Home size={20}/>,
+        icon: <Home/>,
+        path: '/dashboard',
     },
+    // {
+    //     title: 'Analytics',
+    //     icon: <BarChart2 size={20}/>,
+    //     submenu: [
+    //         {title: 'Reports', path: '/analytics/reports'},
+    //         {title: 'Statistics', path: '/analytics/statistics'},
+    //     ],
+    // },
     {
-        title: 'Analytics',
-        icon: <BarChart2 size={20}/>,
-        submenu: [
-            {title: 'Reports', path: '/analytics/reports'},
-            {title: 'Statistics', path: '/analytics/statistics'},
-        ],
-    },
-    {
-        title: 'Users',
-        icon: <Users size={20}/>,
-    },
-    {
-        title: 'Messages',
-        icon: <Mail size={20}/>,
-    },
-    {
-        title: 'Settings',
-        icon: <Settings size={20}/>,
+        title: 'Cerrar Sesión',
+        icon: <LogOutIcon />,
+        path: '/logout',
     },
 ];
