@@ -1,3 +1,3 @@
-import DashboardPage from "@/ui/screens/Dashboard/DashboardPage";
+import DashboardPage from "@/ui/screens/dashboard/DashboardPage";
 
 export default DashboardPage;

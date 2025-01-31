@@ -1,6 +1,6 @@
 import {Router} from "@/modules/core/Router/Router";
-import {DashboardModel} from "@/ui/screens/Dashboard/DashboardModel";
-import {DashboardPresenter} from "@/ui/screens/Dashboard/DashboardPagePresenter";
+import {DashboardModel} from "@/ui/screens/dashboard/DashboardModel";
+import {DashboardPresenter} from "@/ui/screens/dashboard/DashboardPagePresenter";
 import each from "jest-each";
 
 describe("DashboardPage", () => {

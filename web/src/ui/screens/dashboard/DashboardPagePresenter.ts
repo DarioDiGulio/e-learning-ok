@@ -1,5 +1,5 @@
 import {Router} from "@/modules/core/Router/Router";
-import {DashboardModel} from "@/ui/screens/Dashboard/DashboardModel";
+import {DashboardModel} from "@/ui/screens/dashboard/DashboardModel";
 
 export class DashboardPresenter {
     private readonly onModelChangeCallback: (model: DashboardModel) => void;

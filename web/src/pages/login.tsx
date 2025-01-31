@@ -1,3 +1,3 @@
-import LoginPage from "@/ui/screens/LoginPage/LoginPage";
+import LoginPage from "@/ui/screens/public/LoginPage/LoginPage";
 
 export default LoginPage;
