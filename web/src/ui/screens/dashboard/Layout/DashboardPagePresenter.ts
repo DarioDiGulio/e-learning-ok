@@ -16,7 +16,7 @@ export class DashboardPresenter {
     };
 
     logout = (): void => {
-        this.router.navigate("/login");
+        this.router.navigate("/public/login");
     };
 
     private notifyModelChange(): void {

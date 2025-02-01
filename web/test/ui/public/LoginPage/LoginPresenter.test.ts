@@ -1,6 +1,9 @@
 import {LoginPresenter} from "@/ui/screens/public/LoginPage/LoginPresenter";
 import {Router} from "@/modules/core/Router/Router";
 import {LoginModel} from "@/ui/screens/public/LoginPage/LoginModel";
+import {Dispatcher} from "@/modules/core/Dispatcher/Dispatcher";
+import {anything, instance, mock, verify, when} from "ts-mockito";
+import {Login} from "@/modules/users/Login";
 
 describe("LoginPresenter", () => {
     it("debería actualizar el email y notificar el cambio de modelo", () => {
@@ -19,13 +22,15 @@ describe("LoginPresenter", () => {
         expect(model.password).toBe(password);
     });
 
-    it("debería navegar a /home si no hay errores", () => {
+    it("debería navegar a /home si no hay errores", async () => {
         model.email = "test@example.com";
         model.password = "password123";
+        when(dispatcher.execute(Login, anything())).thenResolve();
 
-        presenter.login();
+        await presenter.login();
 
-        expect(routerMock.navigate).toHaveBeenCalledWith("/dashboard");
+
+        verify(router.navigate('/dashboard')).once();
     });
 
     it("debería notificar errores si los campos están vacíos", () => {
@@ -33,7 +38,7 @@ describe("LoginPresenter", () => {
 
         expect(model.errors.email).toBe("El correo electrónico es obligatorio.")
         expect(model.errors.password).toBe("La contraseña es obligatoria.")
-        expect(routerMock.navigate).not.toHaveBeenCalled();
+        verify(router.navigate('/dashboard')).never();
     });
 
     it("debería esconder el error de email al corregir el campo, pero mantener el de contraseña", () => {
@@ -41,7 +46,7 @@ describe("LoginPresenter", () => {
             email: "El correo electrónico es obligatorio.",
             password: "La contraseña es obligatoria.",
         }
-        presenter = new LoginPresenter(routerMock, model, onModelChangeMock);
+        presenter = new LoginPresenter(router, model, onModelChangeMock, dispatcher);
 
         presenter.updateEmail("test@example.com");
 
@@ -54,7 +59,7 @@ describe("LoginPresenter", () => {
             email: "El correo electrónico es obligatorio.",
             password: "La contraseña es obligatoria.",
         }
-        presenter = new LoginPresenter(routerMock, model, onModelChangeMock);
+        presenter = new LoginPresenter(router, model, onModelChangeMock, dispatcher);
 
         presenter.updatePassword("135");
 
@@ -71,14 +76,16 @@ describe("LoginPresenter", () => {
     });
 
     beforeEach(() => {
-        routerMock = {navigate: jest.fn()};
+        router = mock<Router>();
         onModelChangeMock = jest.fn();
+        dispatcher = mock(Dispatcher);
         model = new LoginModel();
-        presenter = new LoginPresenter(routerMock, model, onModelChangeMock);
+        presenter = new LoginPresenter(instance(router), model, onModelChangeMock, instance(dispatcher));
     });
 
-    let routerMock: Router;
+    let router: Router;
     let onModelChangeMock: jest.Mock;
     let model: LoginModel;
     let presenter: LoginPresenter;
+    let dispatcher: Dispatcher;
 });

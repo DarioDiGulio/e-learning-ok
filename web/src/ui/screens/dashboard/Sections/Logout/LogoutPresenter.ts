@@ -4,6 +4,6 @@ export class LogoutPresenter {
     constructor(private router: Router) {}
 
     logout = (): void => {
-        this.router.navigate("/login");
+        this.router.navigate("/public/login");
     };
 }

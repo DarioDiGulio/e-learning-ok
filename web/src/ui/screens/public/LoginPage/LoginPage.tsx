@@ -1,5 +1,5 @@
 import React from "react";
-import {usePresenter} from "@/ui/react/hooks/usePresenters";
+import {usePresenter} from "@/pages/_hooks/usePresenters";
 import {Card, Container, Title} from "@/ui/screens/public/LoginPage/Login.styles";
 import {Input} from "@/ui/components/form/Input/Input";
 import {Button} from "@/ui/components/buttons/Button";

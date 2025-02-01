@@ -7,7 +7,7 @@ describe("DashboardPage", () => {
     it('should logout', () => {
         presenter.logout();
 
-        expect(routerMock.navigate).toHaveBeenCalledWith('/login');
+        expect(routerMock.navigate).toHaveBeenCalledWith('/public/login');
     });
 
     it('should start with courses section', () => {

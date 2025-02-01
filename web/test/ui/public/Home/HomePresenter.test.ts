@@ -5,7 +5,7 @@ describe('LoginPresenter', () => {
   it('debería llamar a navigate con "/login"', () => {
     presenter.navigateToLogin();
 
-    expect(router.navigate).toHaveBeenCalledWith('/login');
+    expect(router.navigate).toHaveBeenCalledWith('/public/login');
   });
 
   beforeEach(() => {

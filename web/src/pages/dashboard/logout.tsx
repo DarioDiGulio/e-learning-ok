@@ -1,4 +1,4 @@
-import {usePresenter} from "@/ui/react/hooks/usePresenters";
+import {usePresenter} from "@/pages/_hooks/usePresenters";
 import React from "react";
 
 const Logout: React.FC = () => {

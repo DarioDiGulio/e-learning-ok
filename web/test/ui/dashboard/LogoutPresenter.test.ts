@@ -5,7 +5,7 @@ describe("LogoutPresenter", () => {
     it('should logout', () => {
         presenter.logout();
 
-        expect(router.navigate).toHaveBeenCalledWith('/login');
+        expect(router.navigate).toHaveBeenCalledWith('/public/login');
     });
 
     beforeEach(() => {

@@ -8,33 +8,20 @@ import {DashboardPresenter} from "@/ui/screens/dashboard/Layout/DashboardPagePre
 import {LogoutPresenter} from "@/ui/screens/dashboard/Sections/Logout/LogoutPresenter";
 import {SidebarPresenter} from "@/ui/screens/dashboard/Sidebar/SidebarPresenter";
 import {SidebarModel} from "@/ui/screens/dashboard/Sidebar/SidebarModel";
+import {Dispatcher} from "@/modules/core/Dispatcher/Dispatcher";
+import {Router} from "@/modules/core/Router/Router";
 
 export class PresenterFactory {
     private nextRouter = useRouter();
+    private readonly router: Router;
 
-    homePresenter(): HomePresenter {
-        const router = new NextRouterAdapter(this.nextRouter);
-        return new HomePresenter(router);
+    constructor(private dispatcher: Dispatcher) {
+        this.router = new NextRouterAdapter(this.nextRouter);
     }
 
-    loginPresenter(initialModel: LoginModel, onModelChange: (model: LoginModel) => void): LoginPresenter {
-        const router = new NextRouterAdapter(this.nextRouter);
-        return new LoginPresenter(router, initialModel, onModelChange);
-    }
-
-    dashboardPresenter(initialModel: DashboardModel, onModelChange: (model: DashboardModel) => void): DashboardPresenter {
-        const router = new NextRouterAdapter(this.nextRouter);
-        return new DashboardPresenter(router, initialModel, onModelChange);
-    }
-
-    logoutPresenter(): LogoutPresenter {
-        const router = new NextRouterAdapter(this.nextRouter);
-        return new LogoutPresenter(router);
-    }
-
-    sideBarPresenter(initialModel: SidebarModel, onModelChange: (model: SidebarModel) => void): SidebarPresenter {
-        const router = new NextRouterAdapter(this.nextRouter);
-        return new SidebarPresenter(router, initialModel, onModelChange);
-    }
-
+    homePresenter = (): HomePresenter => new HomePresenter(this.router);
+    loginPresenter = (initialModel: LoginModel, onModelChange: (model: LoginModel) => void): LoginPresenter => new LoginPresenter(this.router, initialModel, onModelChange, this.dispatcher);
+    dashboardPresenter = (initialModel: DashboardModel, onModelChange: (model: DashboardModel) => void): DashboardPresenter => new DashboardPresenter(this.router, initialModel, onModelChange);
+    logoutPresenter = (): LogoutPresenter => new LogoutPresenter(this.router);
+    sideBarPresenter = (initialModel: SidebarModel, onModelChange: (model: SidebarModel) => void): SidebarPresenter => new SidebarPresenter(this.router, initialModel, onModelChange);
 }

@@ -13,7 +13,7 @@ import {
 } from "./Sidebar.styles";
 import {sidebarItems} from "@/ui/screens/dashboard/Sidebar/SidebarItems";
 import {SidebarItem} from "@/ui/screens/dashboard/Sidebar/SidebarItem";
-import {usePresenter} from "@/ui/react/hooks/usePresenters";
+import {usePresenter} from "@/pages/_hooks/usePresenters";
 
 const Sidebar: React.FC = () => {
     const presenter = usePresenter().sidebarPresenter;
