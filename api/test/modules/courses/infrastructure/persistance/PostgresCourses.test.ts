@@ -10,7 +10,7 @@ describe("PostgresCourses", () => {
     beforeAll(async () => {
         prisma = new PrismaClient();
         courses = new PostgresCourses(prisma);
-        await prisma.course.deleteMany(); // Limpiar la tabla antes de ejecutar los tests
+        await prisma.courses.deleteMany();
     });
 
     afterAll(async () => {

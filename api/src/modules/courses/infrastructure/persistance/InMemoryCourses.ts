@@ -17,4 +17,11 @@ export class InMemoryCourses implements Courses {
     async findById(id: number): Promise<Course | null> {
         return this.courses.find(course => course.id === id) ?? null;
     }
+
+    async update(course: Course): Promise<void> {
+        const index = this.courses.findIndex(c => c.id === course.id);
+        if (index !== -1) {
+            this.courses[index] = course;
+        }
+    }
 }

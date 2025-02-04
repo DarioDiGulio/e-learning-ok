@@ -18,7 +18,7 @@ describe("E2E - Crear Curso", () => {
         expect(response.status).toBe(200);
         expect(response.body.id).toBeDefined();
 
-        const savedCourse = await prisma.course.findUnique({ where: { id: response.body.id } });
+        const savedCourse = await prisma.courses.findUnique({ where: { id: response.body.id } });
         expect(savedCourse).not.toBeNull();
         expect(savedCourse?.name).toBe("Curso de JavaScript");
     });
@@ -50,7 +50,7 @@ describe("E2E - Crear Curso", () => {
 
         app = new Application(expressApp, "3000");
 
-        await prisma.course.deleteMany();
+        await prisma.courses.deleteMany();
     });
 
     afterAll(async () => {
