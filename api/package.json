@@ -1,6 +1,7 @@
 {
   "scripts": {
     "dev": "npx ts-node src/http/HttpMain.ts",
+    "db:migrate":  "./scripts/migrate_db.sh",
     "test": "jest"
   },
   "dependencies": {
