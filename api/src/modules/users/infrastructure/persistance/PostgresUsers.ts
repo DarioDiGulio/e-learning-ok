@@ -18,7 +18,6 @@ export class PostgresUsers implements Users {
         return user.id;
     }
 
-
     async findByUsername(username: string): Promise<User | null> {
         const user = await this.prisma.users.findUnique({
             where: { username },
